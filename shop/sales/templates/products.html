@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block main %}
+    <h1>Products List</h1>  
+    <div class="row">
+        {% for product in products %}
+        <div class="col-4 p-1">
+            <div class="card" style="width: 18rem;">
+                <img src="{{product.image.url}}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">KES {{ product.price }}</p>
+                    <p class="card-text">Quantity Available: {{ product.in_stock }}</p>
+                    {% if product.in_stock %}
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>            
+        {% endfor %}
+    </div>
+{% endblock %}

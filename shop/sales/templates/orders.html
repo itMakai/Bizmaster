@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block main %}
+<h2>Orders List for {{customer}}</h2>
+<table class="table table-hovered">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Paid</th>
+            <th>Delivered</th>
+            <th>order details</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{order.order_date}}</td>
+            <td>{{order.customer}}</td>
+            <td>{{order.paid}}</td>
+            <td>{{order.delivered}}</td>
+            <td>
+                <a
+                    href="/order_details/{{order.id}}"
+                    class="btn btn-primary btn-sm"
+                    >order details</a
+                >
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

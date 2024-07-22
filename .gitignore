@@ -1,0 +1,23 @@
+# Python environment
+venv/
+env/
+ENV/
+.venv/
+.pyvenv/
+pyvenv.cfg
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Django specific
+*.log
+*.pot
+*.pyc
+*.mo
+*.swp
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/

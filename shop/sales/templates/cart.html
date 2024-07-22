@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{%load my_filters%}
+{% block main %}
+    <h1>Your Cart</h1>
+    <div class="container">
+        {% if cart_items %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>KES {{ item.product.price }}</td>
+                    <td>KES {{ item.product.price|multiply:item.quantity }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Your cart is empty.</p>
+        {% endif %}
+    </div>
+{% endblock %}

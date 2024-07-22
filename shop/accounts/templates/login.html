@@ -1,0 +1,52 @@
+{%extends 'base.html'%} {% block main %}
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-6">
+        <div class="card rounded-3 text-black">
+          
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                    style="width: 185px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">Welcome to U-shop</h4>
+                </div>
+
+                <form action="products" method="POST">
+                  {% csrf_token %}
+                  <p>{{error_message}}</p>
+                  <p>Please login to your account</p>
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="text" id="inputUsername" name="inputUsername" class="form-control"
+                      placeholder="Enter Username" />
+                    <label class="form-label" for="inputUsername">Username</label>
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="password" id="inputPassword" name="inputPassword" class="form-control" />
+                    <label class="form-label" for="inputPassword">Password</label>
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="sub">Log
+                      in</button>
+                    <a class="text-muted" href="#">Forgot password?</a>
+                  </div>
+
+                  <div class="d-flex align-items-center justify-content-center pb-4">                   
+                    <p class="mb-0 pb-lg-2 me-2" style="color: #393f81;">Don't have an account? <a href="register_page"
+                      style="color: #393f81;">Register here</a></p>                    
+                  </div>
+
+                </form>
+
+              </div>
+            </div>          
+         
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

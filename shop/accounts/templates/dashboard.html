@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <style>
+        .dashboard-section {
+            margin-bottom: 30px;
+        }
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .order-item, .favorite-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .order-item:last-child, .favorite-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 dashboard-section">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>User Profile</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <img src="{{ profile.image.url }}" class="profile-img" alt="Profile Image">
+                        <h4>{{ user.username }}</h4>
+                        <p>{{ user.email }}</p>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="file" class="form-control-file" name="profile_image" id="profile_image">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="dashboard-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Orders</h3>
+                        </div>
+                        <div class="card-body">
+                            {% for order in recent_orders %}
+                            <div class="order-item">
+                                <p><strong>Order ID:</strong> {{ order.id }}</p>
+                                <p><strong>Date:</strong> {{ order.date }}</p>
+                                <p><strong>Total:</strong> ${{ order.total }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Favorites</h3>
+                        </div>
+                        <div class="card-body">
+                            {% for favorite in favorites %}
+                            <div class="favorite-item">
+                                <p><strong>Product Name:</strong> {{ favorite.product_name }}</p>
+                                <p><strong>Category:</strong> {{ favorite.category }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Location</h3>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>City:</strong> {{ profile.city }}</p>
+                            <p><strong>Address:</strong> {{ profile.address }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
