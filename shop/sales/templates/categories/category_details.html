@@ -1,0 +1,22 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ category.name }}</title>
+</head>
+<body>
+    <h1>{{ category.name }}</h1>
+    <p>{{ category.description }}</p>
+    <h2>Subcategories</h2>
+    <ul>
+        {% for subcategory in subcategories %}
+            <li>
+                <a href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'category_list' %}">Back to Categories</a>
+</body>
+</html>

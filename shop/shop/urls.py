@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.urls import path
 from sales import views
-from sales.views import site_home, products_list, customers, orders, order_details, add_to_cart
+from sales.views import checkout, site_home, products_list, customers, orders, order_details, add_to_cart, view_cart
 from accounts.views import login_page, signin, register_page, register,logout_user, dashboard
 from django.conf import settings
 from django.conf.urls.static import static
@@ -18,8 +18,13 @@ urlpatterns +=[
     path("orders/<int:cust_id>", orders, name="orders"),
     path("order_details/<int:order_id>", order_details, name="order_details"),
     
+    path('categories/', views.category_list, name='category_list'),
+    path('categories/<slug:slug>/', views.category_detail, name='category_detail'),
+
+    
     path('cart/add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
-    path('cart/', views.view_cart, name='cart'),
+    path('cart/', view_cart, name='cart'),
+    path('checkout/', checkout, name='checkout'),
 ]
 
 urlpatterns += [
@@ -31,6 +36,11 @@ urlpatterns += [
     path("register", register, name='register'),
     
     path('dashboard/', dashboard, name='dashboard'),
+    
+    
+   
+
+    
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

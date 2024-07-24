@@ -1,13 +1,15 @@
 from django.shortcuts import render
-from sales.models import Product, Customer, Order, OrderDetail
+from sales.models import Product, Customer, Order, OrderDetail, Category
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Cart, CartItem
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required 
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 
 def site_home(request):
-    return render(request, 'index.html')
+    categories = Category.objects.all()
+    return render(request, 'index.html', {'categories': categories})
     
 def products_list(request):
     products = Product.objects.all()
@@ -46,21 +48,52 @@ def order_details(request, order_id):
     return render(request, 'order_details.html', context)
 
 
-@login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart = request.session.get('cart', {})
 
-    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-    if not created:
-        cart_item.quantity += 1
-    cart_item.save()
+    if str(product_id) in cart:
+        cart[str(product_id)] += 1
+    else:
+        cart[str(product_id)] = 1
+
+    request.session['cart'] = cart
 
     return redirect('cart')
 
-@login_required
 def view_cart(request):
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    cart_items = CartItem.objects.filter(cart=cart)
+    cart = request.session.get('cart', {})
+    cart_items = []
+    total = 0
+    for product_id, quantity in cart.items():
+        product = get_object_or_404(Product, id=product_id)
+        total += product.price * quantity
+        cart_items.append({
+            'product': product,
+            'quantity': quantity,
+            'total': product.price * quantity,
+        })
 
-    return render(request, 'cart.html', {'cart_items': cart_items})
+    context = {
+        'cart_items': cart_items,
+        'total': total,
+    }
+    return render(request, 'cart.html', context)
+
+@login_required
+def checkout(request):
+    
+    return render(request, 'checkout.html')
+
+
+
+
+
+def category_list(request):
+    categories = Category.objects.filter(parent_category__isnull=True)
+    return render(request, 'categories/category_list.html', {'categories': categories})
+
+def category_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    subcategories = category.subcategories.all()
+    return render(request, 'categories/category_detail.html', {'category': category, 'subcategories': subcategories})

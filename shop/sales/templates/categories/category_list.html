@@ -1,0 +1,28 @@
+<!-- templates/categories/category_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+    <h1>Categories</h1>
+    <ul>
+        {% for category in categories %}
+            <li>
+                <a href="{% url 'category_detail' category.slug %}">{{ category.name }}</a>
+                {% if category.subcategories.count > 0 %}
+                    <ul>
+                        {% for subcategory in category.subcategories.all %}
+                            <li>
+                                <a href="{% url 'category_detail' subcategory.slug %}">{{ subcategory.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

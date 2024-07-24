@@ -1,6 +1,4 @@
 {% extends 'base.html' %}
-
-{%load my_filters%}
 {% block main %}
     <h1>Your Cart</h1>
     <div class="container">
@@ -20,11 +18,14 @@
                     <td>{{ item.product.name }}</td>
                     <td>{{ item.quantity }}</td>
                     <td>KES {{ item.product.price }}</td>
-                    <td>KES {{ item.product.price|multiply:item.quantity }}</td>
+                    <td>KES {{ item.total }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+        </div>
         {% else %}
         <p>Your cart is empty.</p>
         {% endif %}

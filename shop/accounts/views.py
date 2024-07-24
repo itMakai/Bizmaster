@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
@@ -17,60 +18,62 @@ def logout_user(request):
     logout(request)
     return redirect('login_page') 
 
+
 def signin(request):
-    username =request.POST.get("inputUsername")
-    password =request.POST.get("inputPassword")
+    if request.method == 'POST':
+        username = request.POST.get("inputUsername")
+        password = request.POST.get("inputPassword")
 
-    user = authenticate(username=username, password=password)
+        user = authenticate(username=username, password=password)
 
-    if user is not None:
-        login(request, user)
-        return render(request, 'index.html')
-    else:
-        context = {'message': 'Login failed. Username or password incorrect. Please try again.'}
-        return render(request, 'login.html', context)
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')  # Redirect to a success page.
+        else:
+            context = {'message': 'Login failed. Username or password incorrect. Please try again.'}
+            return render(request, 'login.html', context)
+    
+    return render(request, 'login.html')
     
 def register_page(request):
         return render(request, 'register.html')
     
+
+
 def register(request):
-        username = request.POST["inputUsername"]
-        password1 = request.POST["inputPassword1"]
-        password2 = request.POST["inputPassword2"]
-        email = request.POST["inputEmail"]
-        first_name = request.POST["inputFirstname"]
-        last_name =request.POST["inputLastname"]
-        phone =request.POST["inputPhone"]
+    if request.method == 'POST':
+        username = request.POST.get("inputUsername")
+        password1 = request.POST.get("inputPassword1")
+        password2 = request.POST.get("inputPassword2")
+        email = request.POST.get("inputEmail")
+        first_name = request.POST.get("inputFirstname")
+        last_name = request.POST.get("inputLastname")
+        phone = request.POST.get("inputPhone")
         
         context = {
-            'username' : username,
-            'email' :email,
-            'first_name' :first_name,
-            'last_name' : last_name,
+            'username': username,
+            'email': email,
+            'first_name': first_name,
+            'last_name': last_name,
         }
         
         if password1 != password2:
-            context.update(
-                {
-                    'error_message': 'Passwards must match. please try again'
-                }
-            )
+            context.update({'error_message': 'Passwords must match. Please try again.'})
             return render(request, 'register.html', context)
         
         if User.objects.filter(username=username).exists():
-            context.update(
-                {
-                    'error_message': 'username exists'
-                }
-            )
-            return render (request, 'register.html', context)
+            context.update({'error_message': 'Username already exists.'})
+            return render(request, 'register.html', context)
         
-        user = User.objects.create_user(username=username, email=email, password=password1, first_name =first_name, last_name =last_name)
+        user = User.objects.create_user(username=username, email=email, password=password1, first_name=first_name, last_name=last_name)
         user.save()
-        customer = Customer.objects.create(first_name =first_name, last_name =last_name, email=email, user=user)
+        customer = Customer.objects.create(first_name=first_name, last_name=last_name, email=email, user=user)
         customer.save()
         
-        return render (request, 'login.html', context)
+        messages.success(request, 'Registration successful. Please log in.')
+        return redirect('login')
+    
+    return render(request, 'register.html')
         
         
 @login_required

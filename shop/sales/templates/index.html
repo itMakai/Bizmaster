@@ -4,46 +4,15 @@
 
 
   <!-- Sidebar -->
-  <div class="sidebar ">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Official Stores</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Phones & Tablets</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">TVs & Audio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Appliances</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Health & Beauty</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Home & Office</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Fashion</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Computing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Supermarket</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Baby Products</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Sporting Goods</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Other Categories</a>
-      </li>
-    </ul>
-  </div>
+<div class="sidebar">
+  <ul class="nav flex-column">
+    {% for category in categories %}
+    <li class="nav-item">
+      <a class="nav-link" href="#">{{ category.name }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 
   <!-- Main content -->
   <div class="content">
