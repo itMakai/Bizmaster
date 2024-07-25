@@ -7,7 +7,7 @@ from sales.models import Customer
 from django.shortcuts import render
 from .models import Profile, Order, Favorite
 from django.contrib.auth.decorators import login_required
-
+from sales.models import Category
 
 # Create your views here.
 def login_page(request):
@@ -87,19 +87,20 @@ def dashboard(request):
 
     recent_orders = Order.objects.filter(user=user).order_by('-date')[:5]
     favorites = Favorite.objects.filter(user=user)
-    
+    categories = Category.objects.all()  # Query all categories
+
     context = {
         'user': user,
         'profile': profile,
         'recent_orders': recent_orders,
         'favorites': favorites,
+        'categories': categories,  # Add categories to the context
     }
 
     if profile is None:
         context['error_message'] = error_message
 
     return render(request, 'dashboard.html', context)
-
 
         
         

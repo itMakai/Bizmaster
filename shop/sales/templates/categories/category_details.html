@@ -18,5 +18,12 @@
         {% endfor %}
     </ul>
     <a href="{% url 'category_list' %}">Back to Categories</a>
+
+    <h2>items Available</h2>
+    <ul>
+        {% for product in products %}
+        <li>{{ product.name }} - {{ product.price }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

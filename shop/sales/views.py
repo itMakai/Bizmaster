@@ -96,4 +96,5 @@ def category_list(request):
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
     subcategories = category.subcategories.all()
-    return render(request, 'categories/category_detail.html', {'category': category, 'subcategories': subcategories})
+    products = Product.objects.filter(category=category)
+    return render(request, 'categories/category_details.html', {'category': category, 'subcategories': subcategories, 'products': products})
