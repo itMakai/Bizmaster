@@ -1,0 +1,76 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+nav {
+    background-color: #343a40;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+.navbar .form-control {
+    border-radius: 0;
+}
+
+.navbar .btn {
+    border-radius: 0;
+}
+
+.footer {
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 40px 0;
+}
+
+.footer a {
+    color: #f8f9fa;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer .footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.footer .footer-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.footer .social-icons a {
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+.footer .newsletter-form input {
+    border: none;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.footer .newsletter-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+}
+
+.footer .newsletter-form button:hover {
+    background-color: #0056b3;
+}

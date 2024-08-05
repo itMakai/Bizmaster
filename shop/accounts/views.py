@@ -80,7 +80,7 @@ def register(request):
 def dashboard(request):
     user = request.user
     try:
-        profile = Profile.objects.get(user=user)
+        profile = Profile.objects.get(user=request.user)
     except Profile.DoesNotExist:
         profile = None
         error_message = "Please complete your profile."  

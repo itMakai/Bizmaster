@@ -243,62 +243,27 @@
     </div>
 
   
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top px-2">
-        <a class="navbar-brand" href="#">BizMaster</a>
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        {% if user.is_authenticated %}
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <form class="form-inline mx-auto d-flex">
-                <input class="form-control mr-sm-4" type="search" placeholder="Search products, brands and categories" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i> Search</button>
-            </form>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-user"></i> {{ greeting }}, {{ user.first_name }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-question-circle"></i> Help</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i> Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-id-badge"></i> Profile</a>
-                </li>
-            </ul>
-        </div>
-        {% else %}
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <form class="form-inline mx-auto d-flex">
-                <input class="form-control form-control-lg mr-sm-4" type="search" placeholder="Search products, brands and categories" aria-label="Search">
-                <button class="btn btn-outline-success btn-lg my-2 my-sm-0" type="submit"><i class="fas fa-search"></i> Search</button>
-            </form>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login_page' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
-                </li>
-            </ul>
-        </div>
-        {% endif %}
-    </nav>
+   
   
 
+
+    {%block navbar%}
+    {% endblock %}
+
     <main class="container mt-5 pt-3">
-      <div class="content master">{% block main %} 
+
+      <div class="content master">
+
+    
+      
+        {% block main %} 
         {% endblock %}</div>
+
+      
     </main>
+
+    {% block footer %}
+    {% endblock %}
     <script
       src="https://getbootstrap.com/docs/5.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
